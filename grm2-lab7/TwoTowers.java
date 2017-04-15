@@ -45,7 +45,7 @@ public class TwoTowers{
   protected Double height(int n){
     Double height = (new Integer(0)).doubleValue();
     for (int i = 0; i < n+1; ++i){
-      height += Math.sqrt(1);
+      height += Math.sqrt(i);
     }
     return height;
   }
@@ -66,22 +66,23 @@ public class TwoTowers{
   protected boolean subsetTowersHelper(int n, Double currHeight, int index, int tower[]){
     if (n == 0 || tallest == half){
       // Have run through all blocks and added them to an index of one tower or the other
+      // Or have found perfect match
       return true;
-    } else if (tallest < half) {
-      // Still searching for perfect match
+    } else {
+      // Still have block to add or searching for perfect match
       // Copy tower without disturbing it or doing funky reference stuff and see if the next block can be added
       int[] tower1 = new int[blocks];
       for (int i = 0; i < tower.length; ++i){
         tower1[i] = tower[i];
       }
       tower1[index] = n;
-      if (tallest < height(tower)){
+      if (height(tower1) < half){
         // If the next block can be added to the tower without going over half, add it or don't and then keep trying
         tallest = height(tower);
         currTower = tower;
-        return subsetTowersHelper((n-1), tallest, (index+1), tower1) || subsetTowersHelper((n-1), tallest, (index+1), tower);
+        return (subsetTowersHelper((n-1), tallest, (index+1), tower1) || subsetTowersHelper((n-1), tallest, (index+1), tower));
       } else {
-        // If the block can't be added, throw it out and keep trying
+        // If the next block can't be added without going over half, don't add it and keep trying
         return subsetTowersHelper((n-1), tallest, (index+1), tower);
       }
     }
@@ -90,6 +91,7 @@ public class TwoTowers{
   public static void main(String args[]){
     TwoTowers t = new TwoTowers(15);
     t.subsetTowers();
+    System.out.println(t.half);
     System.out.println(t.tallest);
     for (int i = 0; i < t.currTower.length; ++i){
       System.out.println(t.currTower[i]);
