@@ -89,14 +89,13 @@ public class TwoTowers{
     towerReader(1,1);
     towerReader(2,0);
     System.out.println("" + tallest);
-    System.out.println("" + (total-tallest));
+    double otherTower = total-tallest;
+    System.out.println("" + (otherTower-tallest));
   }
 
   public static void main(String args[]){
     TwoTowers t = new TwoTowers(15);
     System.out.println("" + t.subsetTowers());
-    System.out.println("" + t.half);
-    System.out.println("" + t.tallest);
     t.printInfo();
     }
   }

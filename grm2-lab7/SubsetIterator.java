@@ -4,7 +4,7 @@ Grace Mazzarella
 
 import java.util.*;
 
-/*public class SubsetIterator<E> implements Iterator<E> {
+public class SubsetIterator<E> implements Iterator<E> {
 
   public SubsetIterator(Iterator<E> it, int bitMask){
 
@@ -23,4 +23,4 @@ import java.util.*;
   public void remove(){
     // Does nothing
   }
-}*/
+}
