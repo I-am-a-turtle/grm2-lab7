@@ -31,71 +31,90 @@ import java.util.*;
 public class TwoTowers{
 
   int blocks;
-  Double half;
-  Double tallest;
-  int[] currTower;
+  double half;
+  double tallest;
+  int currTower;
+  Vector<Integer> towers;
 
   public TwoTowers(int n){
     blocks = n;
-    half = height(n)/2;
+    half = (new Integer(0)).doubleValue();
+    for (int i = 1; i < (n+1); ++i){
+      half = half + Math.sqrt(i);
+    }
+    half = half/2;
+    currTower = 0;
     tallest = (new Integer(0)).doubleValue();
-    currTower = new int[n];
+    towers = new Vector<Integer>();
   }
 
-  protected Double height(int n){
-    Double height = (new Integer(0)).doubleValue();
-    for (int i = 0; i < n+1; ++i){
-      height += Math.sqrt(i);
-    }
-    return height;
-  }
-
-  protected Double height(int tower[]){
-    Double height = (new Integer(0)).doubleValue();
-    for (int i = 0; i < tower.length; ++i){
-      height += Math.sqrt(tower[i]);
-    }
-    return height;
+  protected double height(int tower){
+    int i = blocks;
+    double height = (new Integer(0)).doubleValue();
+    while (tower != 0){
+      int b = tower & 1;
+      if (b == 1){
+        height = height + Math.sqrt(i);
+      }
+     i--;
+     tower = tower>>1;
+   }
+   return height;
   }
 
   protected void subsetTowers(){
-    int[] tower = new int[blocks];
-    subsetTowersHelper(blocks, (new Integer(0).doubleValue()), 0, tower);
+    while (!towers.contains(towerGenerator("", 15))){
+      towerGenerator("", 15);
+    }
   }
 
-  protected boolean subsetTowersHelper(int n, Double currHeight, int index, int tower[]){
+  protected boolean towerGenerator(String t, int n){
+    if (n == 0){
+      System.out.println(t);
+      return n == 0;
+    } else {
+      return towerGenerator(t + "1", n-1) || towerGenerator(t + "0", n-1);
+    }
+  }
+
+  protected boolean subsetTowersHelper(String tower, int n){
     if (n == 0 || tallest == half){
       // Have run through all blocks and added them to an index of one tower or the other
       // Or have found perfect match
-      return true;
+      System.out.println("This is your final tower: " + tower);
+      currTower = Integer.parseInt(tower);
+      return n == 0;
+    } else if (tower == ""){
+      // Get values in the tower so we can calculate height
+      return subsetTowersHelper(tower + "1", n-1) || subsetTowersHelper(tower + "0", n-1);
     } else {
       // Still have block to add or searching for perfect match
-      // Copy tower without disturbing it or doing funky reference stuff and see if the next block can be added
-      int[] tower1 = new int[blocks];
-      for (int i = 0; i < tower.length; ++i){
-        tower1[i] = tower[i];
-      }
-      tower1[index] = n;
-      if (height(tower1) < half){
-        // If the next block can be added to the tower without going over half, add it or don't and then keep trying
-        tallest = height(tower);
-        currTower = tower;
-        return (subsetTowersHelper((n-1), tallest, (index+1), tower1) || subsetTowersHelper((n-1), tallest, (index+1), tower));
+      System.out.println("Current tower: " + tower);
+      Integer t = Integer.parseInt(tower + "1", 2);
+      if (height(t) > half){
+        // Adding a block will go over the halfway mark, don't add it and keep trying
+        System.out.println(tower);
+        System.out.println("NO ADD, current height:" + height(Integer.parseInt(tower, 2)));
+        System.out.println("");
+        return subsetTowersHelper(tower + "0", n-1);
       } else {
-        // If the next block can't be added without going over half, don't add it and keep trying
-        return subsetTowersHelper((n-1), tallest, (index+1), tower);
+        // Height must be less than half
+        // If adding a block doesn't go over the halfway mark, either add or don't add it
+        System.out.println(tower);
+        System.out.println("Height = " + height(t));
+        System.out.println("");
+        if (height(t) > tallest){
+          tallest = height(t);
+          return subsetTowersHelper(tower + "1", n-1) || subsetTowersHelper(tower + "0", n-1);
+        } else {
+          return subsetTowersHelper(tower + "1", n-1) || subsetTowersHelper(tower + "0", n-1);
+        }
       }
     }
   }
 
   public static void main(String args[]){
     TwoTowers t = new TwoTowers(15);
-    t.subsetTowers();
-    System.out.println(t.half);
-    System.out.println(t.tallest);
-    for (int i = 0; i < t.currTower.length; ++i){
-      System.out.println(t.currTower[i]);
+    t.subsetTowersHelper("", 15);
     }
   }
-
-}
