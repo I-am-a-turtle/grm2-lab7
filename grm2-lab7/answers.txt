@@ -1,0 +1,35 @@
+Grace Mazzarella
+
+(a) The difference between the two towers of the best solution is 9.704773256302701 * 10^-4 units.
+
+(b) The user times for n = 5 through n = 25; three runs were used for each time for the sake of precision. 
+
+5.1 = 0.059s     5.2 = 0.059s     5.3 = 0.059s
+6.1 = 0.058s     6.2 = 0.059s     6.3 = 0.058s
+7.1 = 0.058s     7.2 = 0.059s     7.3 = 0.059s
+8.1 = 0.059s     8.2 = 0.059s     8.3 = 0.059s
+9.1 = 0.059s     9.2 = 0.059s     9.3 = 0.059s
+10.1 = 0.060s     10.2 = 0.059s     10.3 = 0.060s
+11.1 = 0.061s     11.2 = 0.061s     11.3 = 0.060s
+12.1 = 0.062s     12.2 = 0.063s     12.3 = 0.062s
+13.1 = 0.067s     13.2 = 0.067s     13.3 = 0.066s
+14.1 = 0.076s     14.2 = 0.075s     14.3 = 0.076s
+15.1 = 0.094s     15.2 = 0.094s     15.3 = 0.094s
+16.1 = 0.129s     16.2 = 0.131s     16.3 = 0.129s
+17.1 = 0.203s     17.2 = 0.203s     17.3 = 0.203s
+18.1 = 0.380s     18.2 = 0.354s     18.3 = 0.355s
+19.1 = 0.663s     19.2 = 0.664s     19.3 = 0.662s
+20.1 = 1.303s     20.2 = 1.303s     20.3 = 1.301s
+21.1 = 2.609s     21.2 = 2.617s     21.3 = 2.609s
+22.1 = 5.318s     22.2 = 5.327s     22.3 = 5.586s
+23.1 = 10.798s     23.2 = 10.797s     23.3 = 10.800s
+24.1 = 22.106s     24.2 = 22.130s     24.3 = 22.183s
+25.1 = 45.243s     25.2 = 45.367s     25.3 = 48.545s
+
+The graph is exponential, which makes sense because the number of possible combinations of n blocks that the TwoTowers program has to consider is 2^n.
+
+(c) Based on the regression equation y = 0.002666018 * 1.379043361^n, which as a 0.901 fit, when there are 40 blocks, user runtime would be around 1021 seconds, give or take, which is about 17 minutes. When there are 50 blocks, user runtime would would around 25,395 seconds, which is approximately 423 minutes, which is around 7 hours.
+
+(d) I hear that Math.sqrt() is an expensive operation. I would build an array that is as long as the number of blocks I'm using, and fill it with the square roots, with the index corresponding to which square root it holds. That is, sqrt[3] holds the square root of 3. That way I would only have to call Math.sqrt() at the beginning, and just reference the array every other time. Of course, trade-off is that I would have to store the array.
+
+Regarding subsetIterator,

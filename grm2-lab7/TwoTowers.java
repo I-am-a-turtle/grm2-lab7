@@ -90,6 +90,7 @@ public class TwoTowers{
     towerReader(2,0);
     System.out.println("" + tallest);
     double otherTower = total-tallest;
+    System.out.println("" + otherTower + " - " + tallest);
     System.out.println("" + (otherTower-tallest));
   }
 
