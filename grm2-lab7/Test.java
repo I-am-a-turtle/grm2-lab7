@@ -15,7 +15,7 @@ public class Test{
  }*/
 
   public static void main(String args[]){
-    int i = 0;
+    /*int i = 0;
     int M = 13;
     while (M != 0){
       int b = M & 1;
@@ -24,6 +24,21 @@ public class Test{
      }
      i++;
      M = M>>1;
+   }*/
+   int i = 0;
+   int n = 0;
+   while (i < 100){
+     if (n%2 == 0){
+       i = (1<<n);
+       System.out.println(i);
+       System.out.println(Integer.toBinaryString(i));
+       ++n;
+     } else {
+       i = (1<<n)-1;
+       System.out.println(i);
+       System.out.println(Integer.toBinaryString(i));
+       ++n;
+     }
    }
   }
 }
