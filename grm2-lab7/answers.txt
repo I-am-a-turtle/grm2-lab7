@@ -2,7 +2,7 @@ Grace Mazzarella
 
 (a) The difference between the two towers of the best solution is 9.704773256302701 * 10^-4 units.
 
-(b) The user times for n = 5 through n = 25; three runs were used for each time for the sake of precision. 
+(b) The user times for n = 5 through n = 25; three runs were used for each time for the sake of precision.
 
 5.1 = 0.059s     5.2 = 0.059s     5.3 = 0.059s
 6.1 = 0.058s     6.2 = 0.059s     6.3 = 0.058s
@@ -28,8 +28,8 @@ Grace Mazzarella
 
 The graph is exponential, which makes sense because the number of possible combinations of n blocks that the TwoTowers program has to consider is 2^n.
 
-(c) Based on the regression equation y = 0.002666018 * 1.379043361^n, which as a 0.901 fit, when there are 40 blocks, user runtime would be around 1021 seconds, give or take, which is about 17 minutes. When there are 50 blocks, user runtime would would around 25,395 seconds, which is approximately 423 minutes, which is around 7 hours.
+(c) Based on the regression equation y = 0.002666018 * 1.379043361^n, which as a 0.901 fit, when there are 40 blocks, user runtime would be around 1021 seconds, give or take, which is about 17 minutes, give or take 10%, which is around 1.7 minutes. When there are 50 blocks, user runtime would would around 25,395 seconds, which is approximately 423 minutes, which is around 7 hours, give or take 10%, which is around 42 minutes (troublesome).
 
-(d) I hear that Math.sqrt() is an expensive operation. I would build an array that is as long as the number of blocks I'm using, and fill it with the square roots, with the index corresponding to which square root it holds. That is, sqrt[3] holds the square root of 3. That way I would only have to call Math.sqrt() at the beginning, and just reference the array every other time. Of course, trade-off is that I would have to store the array.
+(d) I hear that Math.sqrt() is an expensive operation. I could build a Vector and fill it with the square roots, with the index corresponding to which square root it holds (because of CS counting, each index would be one less than the number whose square root it stores, but that's no big deal). This would save me from having to calculate Math.sqrt() excessively. I would just make a SubsetIterator for my class (an object of the instance or not, I'm not sure it really matters since it doesn't hold information; it just reads it and forgets it, as far as I understand) and, in my height() function, give it my Vector of square roots. I could do something similar with my towerReader(). I could have a Vector with each block in the appropriate index and then use my currTower's number as the bitmask to read off each block.
 
-Regarding subsetIterator,
+The advantages to using SubsetIterator in the code is anyone who reads the code of TwoTowers could look at it, see that my code promises that this SubsetIterator object will do what it's supposed to do, and move on. They don't have to be distracted by the fact that I wrote something very similar in multiple places. However, it would mean that I need space for three extra things - my two Vectors with information, and my SubsetIterator itself.

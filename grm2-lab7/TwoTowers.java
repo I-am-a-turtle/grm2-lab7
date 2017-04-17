@@ -43,11 +43,14 @@ public class TwoTowers{
       total = total + Math.sqrt(i);
     }
     half = total/2;
-    currTower = 0;
     tallest = (new Integer(0)).doubleValue();
+    currTower = 0;
   }
 
   protected double height(int tower){
+    // Calculates the height of a given tower
+    // Pre: tower is nonnegative
+    // Post: returns a double
     int i = blocks;
     double height = (new Integer(0)).doubleValue();
     while (tower != 0){
@@ -61,20 +64,24 @@ public class TwoTowers{
    return height;
   }
 
-  protected int subsetTowers(){
+  protected void subsetTowers(){
+    // Creates all possible towers and searches for the one with the height that
+    // is closest to half of an n-blocks tall tower
     for (int i = 0; i < Math.pow(2, blocks); ++i){
       if (height(i) <= half && height(i) > tallest){
         tallest = height(i);
         currTower = i;
       }
     }
-    return currTower;
   }
 
-  protected void towerReader(int tower, int read){
+  protected void towerReader(int number, int read){
+    // Reads currTower and prints out which blocks are which
+    // Pre: 'read' must be either 0 or 1
+    // Post: every time the specified 'read' is encountered, prints out the block that lives there
     int n = blocks;
     int ct = currTower;
-    System.out.println("Tower " + tower);
+    System.out.println("Tower " + number);
     while (n > 0){
       int check = ct & 1;
       if (check == read){
@@ -86,17 +93,19 @@ public class TwoTowers{
   }
 
   protected void printInfo(){
+    // Answers the requested questions
     towerReader(1,1);
     towerReader(2,0);
+    System.out.println("The height of one of the towers:");
     System.out.println("" + tallest);
     double otherTower = total-tallest;
-    System.out.println("" + otherTower + " - " + tallest);
+    System.out.println("The difference between the heights of the two towers:");
     System.out.println("" + (otherTower-tallest));
   }
 
   public static void main(String args[]){
     TwoTowers t = new TwoTowers(15);
-    System.out.println("" + t.subsetTowers());
+    t.subsetTowers();
     t.printInfo();
     }
   }
